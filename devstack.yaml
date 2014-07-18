@@ -1,8 +1,8 @@
 ---
 ## general configuration
 ## create a local_devstack.yaml to override with personal settings
-path: /var/www/app_name
-vhost: app-name.dev
+path: /var/www/sks
+vhost: sks.dev
 ip: 192.168.56.112
 box_name: trusty64
 
@@ -13,15 +13,15 @@ profile::webserver::php: true
 profile::webserver::hhvm: false
 profile::javascript::nodejs: false
 profile::javascript::less: false
-profile::app::symfony2: true
-profile::app::php_vhost: false
+profile::app::symfony2: false
+profile::app::php_vhost: true
 profile::app::standalone_app: false
 profile::app::zend_framework1: false
 
 ## mysql
 component::mysql::root_password: root
 component::mysql::databases:
-  db_name:
+  sks:
     user: dev
     password: dev
     host: localhost
