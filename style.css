@@ -1,0 +1,129 @@
+html,body
+{
+ margin: 0px;
+ padding: 0px;
+}
+#topline
+{
+ width: 100%;
+ height: 15px;
+ position: absolute;
+ left: 0px;
+ top: 0px;
+ background-color: #5a98d1;
+ border-bottom: 1px solid black;
+ z-index: 1;
+}
+#header
+{
+ width: 100%;
+ height: 70px;
+ position: absolute;
+ left: 0px;
+ top: 0px;
+ background-image: url(/header-03.jpg);
+ background-position: 0 center;
+ background-repeat: no-repeat;
+ border-top: 1px solid #5a98d1;
+ border-bottom: 3px solid #5a98d1;
+ background-color: #8bbae6;
+ border-top: 1px solid black;
+ color: black;
+ text-align: left;
+ font-family: sans-serif,serif;
+ font-weight: bold;
+ font-size: 18pt;
+}
+#menu
+{
+ width: 100%;
+ height: 20px;
+ position: absolute;
+ left: 0px;
+ top: 71px;
+ border-top: 1px solid #5a98d1;
+ border-bottom: 1px solid black;
+ background-color: #8bbae6;
+ border-top: 1px solid black;
+ color: black;
+ text-align: left;
+ font-family: verdana, "bitstream vera sans", sans-serif;
+ font-size: 12px;
+ padding-left: 0px;
+ margin:0px;
+}
+#menu a
+{
+ color: black;
+}
+
+#main
+{
+ position: absolute;
+ top: 110px;
+ left: 0px;
+ z-index: 1;
+ width: 100%;
+}
+#main2
+{
+ width: 600px;
+ margin: 0 auto;
+ font-size: 12px;
+ font-family: verdana, "bitstream vera sans", sans-serif;
+}
+#ads
+{
+ width: 125px;
+ height: 610px;
+ position: absolute;
+ right: 0px;
+ top: 121px;
+ z-index: 0;
+}
+img{border: 0px solid black;}
+h1
+{
+ width:100%;
+ border-bottom: 3px solid #5a98d1; 
+}
+
+h2:target 
+{ 
+	background-color: #ff8;
+}
+
+table.list
+{
+ border-collapse: collapse;
+ width: 90%;
+ margin:0px;
+}
+table.list th
+{
+ border: 1px solid black;
+ background-color: #b4cad8;
+ font-weight: bold;
+}
+
+table.list td
+{
+ border: 1px solid black;
+}
+
+table.list a
+{
+ color: black;
+}
+
+a
+{
+ text-decoration: none;
+ color: blue;
+}
+
+table.statslist
+{
+	width: 500px; 
+	text-align: right; 
+}

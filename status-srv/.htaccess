@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteRule ^info/(.+)$ /status/ks-status.php?server=$1
+RewriteRule ^membership/(.+)$ /status/ks-peers.php?server=$1
+
+<Files ~ "(get_zonedata\.php|sks-update\.php|ip(\-v1|6)?\.php|eu\.php|tls\.php|ha\.php|na\.php|oc\.php|sa\.php|p80\.php|sks_cache\.serialized|sks_cache_status_collection.serialized)">
+Order deny,allow
+Allow from 127.0.0.1
+Allow from 84.215.49.1
+Allow from 2001:16d8:ee3d:ee30:5920:f797:6ff5:f29e
+Allow from 2001:16d8:ee3d:ee30:0215:5dff:fe00:1203
+Deny from all
+</Files>

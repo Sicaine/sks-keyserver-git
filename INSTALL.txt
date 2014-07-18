@@ -1,0 +1,60 @@
+Dependencies
+ * PHP has to be compiled with support for
+	- sockets
+	- curl
+	
+ * libevent ( http://www.php.net/manual/en/book.libevent.php ). Once libevent (C library) is installed, PHP should be configured using something like "pecl install channel://pecl.php.net/libevent-0.0.5" and adding extension=libevent.so to php.ini 
+
+Required settings in php.ini
+ * short_open_tag = On
+ 
+Apache configuration:
+ * AllowOverride has to accept .htaccess files doing mod_rewrite (affects meta page and membership file) 
+ 
+Changes to code
+ * There are hard-references to /webs/sks-keyservers.net: These needs to be substituted for the location on your server -- using sed replace should suffice, e.g.
+    find . -iname "*\.php" | xargs -I {} sed -i "s#/webs/sks-keyservers.net#/var/www/localhost/htdocs#g" {}
+	find . -iname "*\.sh" | xargs -I {} sed -i "s#/webs/sks-keyservers.net#/var/www/localhost/htdocs#g" {}
+ * if you encounter errors such as "bash: ./update.sh: /bin/sh^M: bad interpreter: No such file or directory" , the folloxing should fix this: find . -iname "*\.sh" | xargs -I {} dos2unix {} 
+
+ Optional installs
+  * If you want to generate the keyserver map, graphviz has to be installed, otherwise you'll get complaints about missing command "dot"
+  * If you want to utilize the DNS functionality, bind has to be installed and changes made to "updatezone.sh" and "zonetpl"
+  
+ If you're running a local SKS keyserver, some manual adjustments will have to be made for proper SVR weights and IPv6 detection. An exmaple of such a patch is included below.
+ 
+ 
+ ####################
+ Patch for correction of SRV and IPv6
+ ####################
+ --- /root/sks-keyservers-pool-read-only/sks-keyservers.net/status-srv/sks_get_peer_data.php     2012-05-01 18:59:18.000000000 +0200
++++ /var/www/localhost/htdocs/status-srv/sks_get_peer_data.php  2012-05-01 19:08:02.000000000 +0200
+@@ -97,7 +97,7 @@
+    $return_array['statusok'] = true; //Default status OK to true
+
+    // compability for own server
+-   $host = ($host=="keys.kfwebs.net") ? "10.1.1.3" : $host;
++   $host = ($host=="keys2.kfwebs.net") ? "192.168.0.33" : $host;
+
+    $timestart = microtime_float();
+    $ch = curl_init("http://$host:$port/pks/lookup?op=stats");
+@@ -117,7 +117,7 @@
+     $return_array['srvweight'] = (int)((1/($return_array['responsetime'])) * 100);
+
+     // manually correct localhost
+-    if($return_array['hostname'] == "keys.kfwebs.net")
++    if($return_array['hostname'] == "keys2.kfwebs.net"||$return_array['hostname'] == "keys3.kfwebs.net")
+     {
+        $return_array['srvweight'] = 85;
+     }
+@@ -185,7 +185,7 @@
+    // Check IPv6 status
+    $return_array['statusipv6ok'] = false;
+
+-   $ipv6_addy = gethostbyname6(($host=="10.1.1.3" ? "keys.kfwebs.net" : $host));
++   $ipv6_addy = gethostbyname6(($host=="192.168.0.33" ? "keys2.kfwebs.net" : $host));
+    if(!is_array($ipv6_addy) && $ipv6_addy !== false && !in_array($host, $blacklistv6))
+    {
+     $sock = socket_create(AF_INET6, SOCK_STREAM, SOL_TCP);
+####################
+ 
